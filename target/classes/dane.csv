@@ -1,0 +1,11 @@
+country,distance,latitude,_type,fullName,inEurope,type,location_id,countryCode,iata_airport_code,name,_id,key,coreCountry,longitude
+Nigeria,3240,-27.9783073,Position,"Cieślak, Nigeria",false,location,625080,NG,null,Cieślak,63919,null,false,51.5485863
+Netherlands,1231,-57.8903588,Position,"Zakrzewska, Netherlands",true,location,449564,NL,null,Zakrzewska,80215,null,false,10.5049801
+Nigeria,3240,-83.220628,Position,"Szymczak, Nigeria",false,location,625080,NG,null,Szymczak,91917,null,false,75.3970293
+Netherlands,1231,-57.8587403,Position,"Piotrowska, Netherlands",true,location,449564,NL,null,Piotrowska,10422,null,false,140.9221614
+Togo,8932,-40.9909238,Position,"Kozłowska, Togo",false,location,279679,TG,null,Kozłowska,31707,null,false,140.1469541
+Nigeria,3240,-2.3799307,Position,"Ziółkowska, Nigeria",false,location,625080,NG,null,Ziółkowska,47999,null,false,21.2185877
+Nigeria,3240,4.2362202,Position,"Marciniak, Nigeria",false,location,625080,NG,null,Marciniak,56164,null,false,124.1497301
+Togo,8932,-81.4283042,Position,"Jakubowska, Togo",false,location,279679,TG,null,Jakubowska,33741,null,false,120.803445
+Togo,8932,-33.2004691,Position,"Kubiak, Togo",false,location,279679,TG,null,Kubiak,39791,null,false,172.8888421
+Nigeria,3240,42.913678,Position,"Stępień, Nigeria",false,location,625080,NG,null,Stępień,53952,null,false,4.1407108
