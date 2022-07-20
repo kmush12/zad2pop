@@ -23,7 +23,7 @@ public class JSONToCSVConverter {
             .build()
             .withHeader();
 
-    public static void JSONToCSV(int size) throws IOException {
+    public static void jsonToCSV(int size) throws IOException {
         JSONArray json = getPageContent(size);
         JsonNode jsonTree = nodeFlatten(json);
         JsonNode firstObject = jsonTree.elements().next();

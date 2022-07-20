@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.company.zad2pop.csv.CSVReader.readSelectedCSVColumn;
-import static com.company.zad2pop.json.JSONToCSVConverter.JSONToCSV;
+import static com.company.zad2pop.json.JSONToCSVConverter.jsonToCSV;
 
 @Service
 public class EndpointService {
     protected static String endpoint1(int x) throws IOException {
 
-        JSONToCSV(x);
+        jsonToCSV(x);
         List<String> selectedFields = new ArrayList<>();
         selectedFields.add("type");
         selectedFields.add("_id");
@@ -26,7 +26,7 @@ public class EndpointService {
 
     protected static String endpoint2(int x, List<String> selectedFields) throws IOException {
 
-        JSONToCSV(x);
+        jsonToCSV(x);
         return readSelectedCSVColumn(selectedFields);
     }
 }
