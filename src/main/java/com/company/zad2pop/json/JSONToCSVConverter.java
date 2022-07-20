@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import java.io.File;
 import java.io.IOException;
 
-import static com.company.zad2pop.csv.Flattener.flatten;
+import static com.company.zad2pop.json.Flattener.getFlattenedJson;
 import static com.company.zad2pop.PageReader.getPageContent;
 
 
@@ -37,7 +37,7 @@ public class JSONToCSVConverter {
     }
 
     private static JsonNode nodeFlatten(JSONArray node) throws JsonProcessingException {
-        return flatten(convertArrayToNode(node));
+        return getFlattenedJson(convertArrayToNode(node));
     }
 
     private static JsonNode convertArrayToNode(JSONArray array) throws JsonProcessingException {
