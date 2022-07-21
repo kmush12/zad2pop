@@ -12,66 +12,62 @@ import java.util.Objects;
 
 public class CSVReader {
 
-    private static final StringBuilder string = new StringBuilder();
+    public String readSelectedCSVColumn(List<String> headerlist) {
 
-    public static String readSelectedCSVColumn(List<String> headerlist) {
+        try (BufferedReader br = new BufferedReader(FilePath());
+             CSVParser parser = CSVFormat.DEFAULT.builder().setHeader().setDelimiter(',').build().parse(br)) {
 
-        try (BufferedReader br = new BufferedReader(setFileReaderPath());
-             CSVParser parser = CSVFormat.DEFAULT.withDelimiter(',').withHeader().parse(br)) {
-
-                 readAllToString(headerlist, parser);
+                return readDataByHeaders(headerlist, parser);
 
         } catch (Exception e) {
             System.out.println(e);
         }
+        return null;
+    }
+
+    private String readDataByHeaders(List<String> headerlist, CSVParser parser) {
+        StringBuilder string = new StringBuilder();
+        for (String header : headerlist) {
+            if (!objectComparator(header, headerlist)) {
+                string.append(header).append(", ");
+            } else {
+                string.append(header).append("\n");
+            }
+        }
+        for (CSVRecord record : parser) {
+            string.append(readRecord(headerlist, record));
+        }
         return string.toString();
     }
-    private static void readAllToString(List<String> headerlist, CSVParser parser) {
-        readHeadersLineToString(headerlist);
-        readRecordsLineToString(headerlist, parser);
-    }
 
-    private static void readRecordsLineToString(List<String> headerlist, CSVParser parser) {
-
-        for (CSVRecord record : parser) {
-
+    private String readRecord(List<String> headerlist, CSVRecord record) {
+        StringBuilder string = new StringBuilder();
+        
             for (String header : headerlist) {
                 if (!objectComparator(header, headerlist)) {
                     string.append(record.get(header)).append(",");
                 } else {
-                    string.append(record.get(header));
+                    string.append(record.get(header)).append("\n");
                 }
             }
-            string.append("\n");
+        return string.toString();
         }
-    }
+        
+    
 
-    private static void readHeadersLineToString(List<String> headerlist) {
-
-        for (String header : headerlist) {
-
-            if (!objectComparator(header, headerlist)) {
-                string.append(header).append(", ");
-            } else {
-                string.append(header);
-            }
-        }
-        string.append("\n");
-    }
-
-    private static FileReader setFileReaderPath() throws FileNotFoundException {
+    private FileReader FilePath() throws FileNotFoundException {
        return new FileReader("src/main/resources//dane.csv");
     }
 
-    private static boolean objectComparator(String header, List<String> headerlist) {
+    private boolean objectComparator(String header, List<String> headerlist) {
         return (Objects.equals(header, previousHeader(headerlist)));
     }
 
-    private static String previousHeader(List<String> headerlist) {
+    private String previousHeader(List<String> headerlist) {
         return headerlist.get(previousHeaderNumber(headerlist));
     }
 
-    private static int previousHeaderNumber(List<String> headerlist) {
+    private int previousHeaderNumber(List<String> headerlist) {
         return headerlist.size() - 1;
     }
 }

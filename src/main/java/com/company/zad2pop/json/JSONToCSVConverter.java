@@ -1,5 +1,6 @@
 package com.company.zad2pop.json;
 
+import com.company.zad2pop.PageReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,37 +11,32 @@ import org.json.JSONArray;
 import java.io.File;
 import java.io.IOException;
 
-import static com.company.zad2pop.json.Flattener.getFlattenedJson;
-import static com.company.zad2pop.PageReader.getPageContent;
-
-
 public class JSONToCSVConverter {
 
-    private static final File setCSVFilePath = new File("src/main/resources/dane.csv");
-    private static final CsvMapper csvMapper = new CsvMapper();
-    private static final CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
-    private static final CsvSchema csvSchema = csvSchemaBuilder
-            .build()
-            .withHeader();
+    private final File csvFilePath = new File("src/main/resources/dane.csv");
 
-    public static void jsonToCSV(int size) throws IOException {
-        JSONArray json = getPageContent(size);
-        JsonNode jsonTree = nodeFlatten(json);
-        JsonNode firstObject = jsonTree.elements().next();
+    public void jsonToCSV(int size) throws IOException {
+        PageReader pageReader = new PageReader();
+        JSONArray json = pageReader.getPageContent(size);
+        JsonNode jsonNode = nodeFlatten(json);
+        CsvSchema.Builder csvSchemaBuilder = CsvSchema.builder();
+        jsonNode.elements().next().fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
 
-        firstObject.fieldNames().forEachRemaining(csvSchemaBuilder::addColumn);
-
+        CsvSchema csvSchema = csvSchemaBuilder
+                .build()
+                .withHeader();
+        CsvMapper csvMapper = new CsvMapper();
         csvMapper.writerFor(JsonNode.class)
                 .with(csvSchema)
-                .writeValue(setCSVFilePath, jsonTree);
-        System.out.println(csvMapper);
+                .writeValue(csvFilePath, jsonNode);
     }
 
-    private static JsonNode nodeFlatten(JSONArray node) throws JsonProcessingException {
-        return getFlattenedJson(convertArrayToNode(node));
+    public JsonNode nodeFlatten(JSONArray node) throws JsonProcessingException {
+        Flattener flattener = new Flattener();
+        return flattener.getFlattenedJson(convertArrayToNode(node));
     }
 
-    private static JsonNode convertArrayToNode(JSONArray array) throws JsonProcessingException {
+    public JsonNode convertArrayToNode(JSONArray array) throws JsonProcessingException {
         return new ObjectMapper().readTree(String.valueOf(array));
     }
 }

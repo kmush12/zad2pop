@@ -1,19 +1,19 @@
 package com.company.zad2pop;
 
+import com.company.zad2pop.csv.CSVReader;
+import com.company.zad2pop.json.JSONToCSVConverter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.company.zad2pop.csv.CSVReader.readSelectedCSVColumn;
-import static com.company.zad2pop.json.JSONToCSVConverter.jsonToCSV;
-
 @Service
 public class EndpointService {
-    protected static String endpoint1(int x) throws IOException {
+    protected String endpoint1(int x) throws IOException {
 
-        jsonToCSV(x);
+        JSONToCSVConverter converter = new JSONToCSVConverter();
+        converter.jsonToCSV(x);
         List<String> selectedFields = new ArrayList<>();
         selectedFields.add("type");
         selectedFields.add("_id");
@@ -21,13 +21,16 @@ public class EndpointService {
         selectedFields.add("type");
         selectedFields.add("latitude");
         selectedFields.add("longitude");
-        return readSelectedCSVColumn(selectedFields);
+        CSVReader csvReader = new CSVReader();
+        return csvReader.readSelectedCSVColumn(selectedFields);
     }
 
-    protected static String endpoint2(int x, List<String> selectedFields) throws IOException {
+    protected String endpoint2(int x, List<String> selectedFields) throws IOException {
 
-        jsonToCSV(x);
-        return readSelectedCSVColumn(selectedFields);
+        JSONToCSVConverter converter = new JSONToCSVConverter();
+        converter.jsonToCSV(x);
+        CSVReader csvReader = new CSVReader();
+        return csvReader.readSelectedCSVColumn(selectedFields);
     }
 }
 
