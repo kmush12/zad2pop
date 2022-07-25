@@ -1,3 +1,3 @@
 country,distance,latitude,_type,fullName,inEurope,type,location_id,countryCode,iata_airport_code,name,_id,key,coreCountry,longitude
-Poland,null,37.1235714,Position,"Cieślak, Poland",true,location,279679,PL,null,Cieślak,41861,null,false,80.1960001
-Togo,231,11.1804517,Position,"Szulc, Togo",true,location,279679,CH,null,Szulc,97260,null,false,3.4007938
+Czechia,231,-7.535261,Position,"Dąbrowska, Czechia",true,location,777031,CZ,null,Dąbrowska,64384,null,false,136.7311971
+Poland,null,24.1035278,Position,"Włodarczyk, Poland",true,location,586923,PL,null,Włodarczyk,67032,null,false,100.8426819
